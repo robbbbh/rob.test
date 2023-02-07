@@ -1,0 +1,5 @@
+---
+# tasks file for hello_world
+- name: Print Hello world
+  ansible.builtin.debug:
+    msg: "Hello world from the Role within the collection"
