@@ -1,0 +1,12 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  collections:
+    - rob.test
+  tasks:
+    - name: "Include rob.test"
+      ansible.builtin.include_role:
+        name: "hello_world"
