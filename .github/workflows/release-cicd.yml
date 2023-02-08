@@ -33,7 +33,7 @@ jobs:
           path: "${{ github.repository }}"
       - uses: gofrolist/molecule-action@v2
         with:
-          molecule_working_dir: roles/hello_world
+          molecule_working_dir: rob.test/roles/hello_world
           molecule_command: test
           molecule_args: --scenario-name ${{ matrix.scenario }}
         env:
