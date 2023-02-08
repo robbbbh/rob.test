@@ -7,6 +7,16 @@
   collections:
     - rob.test
   tasks:
-    - name: "Include rob.test"
-      ansible.builtin.include_role:
-        name: "hello_world"
+    - name: "Check file has been made"
+      ansible.builtin.stat:
+        path: "~/hello_world.txt"
+
+    - name: "Cat the file contents"
+      ansible.builtin.command: cat ~/hello_world.txt
+      changed_when: false
+      register: output
+
+    - name: "Check the content"
+      ansible.builtin.assert:
+        that:
+          - output.stdout == "Hello world from the Role within the collection in the file"

@@ -1,5 +1,11 @@
 ---
 # tasks file for hello_world
-- name: Print Hello world
+- name: "Print Hello world"
   ansible.builtin.debug:
     msg: "Hello world from the Role within the collection"
+
+- name: "Create file"
+  ansible.builtin.copy:
+    dest: ~/hello_world.txt
+    content: "Hello world from the Role within the collection in the file"
+    mode: 0775
