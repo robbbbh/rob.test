@@ -22,8 +22,19 @@ jobs:
 
   molecule:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario:
+          - default
     steps:
       - uses: actions/checkout@v2
         with:
           path: "${{ github.repository }}"
-      - uses: gofrolist/molecule-action@v2  
+      - uses: gofrolist/molecule-action@v2
+        with:
+          molecule_options: --debug --base-config /roles/molecule/molecule.yml
+          molecule_command: test
+          molecule_args: --scenario-name ${{ matrix.scenario }}
+        env:
+          ANSIBLE_FORCE_COLOR: '1'
