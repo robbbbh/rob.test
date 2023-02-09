@@ -17,14 +17,14 @@ jobs:
       - name: "update galaxy version"
         uses: rmeneely/update-yaml@v1
         with:
-          infile: galaxy.yml
+          infile: "${{ github.repository }}/galaxy.yml"
           varlist: "version=v0.0.16"
       - name: Push the updated tag version to galaxy.yml
         uses: actions/checkout@v3
       - run: |
           git config user.name "Rob Harris"
           git config user.email harrisrp95@gmail.com
-          git add ./galaxy.yml
+          git add "${{ github.repository }}/galaxy.yml"
           git commit -m "Updated galaxy version"
           git push
 
