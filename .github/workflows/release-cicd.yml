@@ -42,17 +42,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install yq
-        run: pip3 install yq
-
-      - name: Change galaxy version in the collection
-        run: yq -i -y '.version = "${{ github.ref_name }}"' ./galaxy.yml 
-
-      - name: Push the updated tag version to galaxy.yml
-        uses: actions/checkout@v3
-
       - name: Push changes back to github
         run: |
+          pip3 install yq
+          yq -i -y '.version = "${{ github.ref_name }}"' ./galaxy.yml 
+
           git config --global user.name "Rob Harris"
           git config --global user.email "harrisrp95@gmail.com"
 
