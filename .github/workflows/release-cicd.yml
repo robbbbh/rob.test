@@ -4,7 +4,7 @@ name: Release on version
 on: 
   push:
     tags:
-      - "v*"
+      - "*"
 
 jobs:
   variable-dump:
@@ -42,11 +42,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: "update galaxy version"
-        uses: rmeneely/update-yaml@v1
-        with:
-          infile: "./galaxy.yml"
-          varlist: "version=v0.0.16"
+      - name: Install yq
+        run: pip3 install yq
+
+      - name: Change galaxy version in the collection
+        run: yq -i -y '.version = "${{ github.ref_name }}"' ./galaxy.yml 
+
       - name: Push the updated tag version to galaxy.yml
         uses: actions/checkout@v3
       - run: |
