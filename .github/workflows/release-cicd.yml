@@ -51,6 +51,7 @@ jobs:
           ls -lrt
           yq -i -y '.version = "${{ github.ref_name }}"' ./galaxy.yml 
 
+          git remote set-head origin --auto
           git config --global user.name "Rob Harris"
           git config --global user.email "harrisrp95@gmail.com"
 
