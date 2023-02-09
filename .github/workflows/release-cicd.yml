@@ -43,15 +43,14 @@ jobs:
         uses: actions/checkout@v3
         with:
          fetch-depth: 0
-         ref: ${{ github.event.pull_request.head.ref }}
+
       - name: Push changes back to github
         run: |
           pip3 install yq --user
-          pwd
-          ls -lrt
           yq -i -y '.version = "${{ github.ref_name }}"' ./galaxy.yml 
 
           git remote set-head origin --auto
+          git checkout main
           git config --global user.name "Rob Harris"
           git config --global user.email "harrisrp95@gmail.com"
 
