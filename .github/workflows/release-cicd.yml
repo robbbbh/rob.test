@@ -19,13 +19,21 @@ jobs:
         with:
           infile: galaxy.yml
           varlist: "version=${{ github.ref_type	}}"
+      - name: Push the updated tag version to galaxy.yml
+        uses: actions/checkout@v3
+      - run: |
+          git config user.name "Rob Harris"
+          git config user.email harrisrp95@gmail.com
+          git add ./galaxy.yml
+          git commit -m "Updated galaxy version"
+          git push
 
   super-lint:
     name: "Lint code base"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.2
 
       - name: Run Super-Linter
         uses: github/super-linter@v4
@@ -41,7 +49,7 @@ jobs:
         scenario:
           - default
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.2
         with:
           path: "${{ github.repository }}"
       - uses: gofrolist/molecule-action@v2
