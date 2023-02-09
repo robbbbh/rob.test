@@ -7,6 +7,19 @@ on:
       - "v*"
 
 jobs:
+  update-galaxy-version:
+    name: Update Galaxy Version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.2
+
+      - name: "update galaxy version"
+        uses: rmeneely/update-yaml@v1
+        with:
+          infile: galaxy.yml
+          varlist: "version=${{ github.ref_type	}}"
+
   super-lint:
     name: "Lint code base"
     runs-on: ubuntu-latest
