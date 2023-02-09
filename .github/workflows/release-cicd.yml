@@ -41,7 +41,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
+        with:
+         fetch-depth: 0
       - name: Push changes back to github
         run: |
           pip3 install yq --user
