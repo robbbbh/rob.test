@@ -50,9 +50,14 @@ jobs:
 
       - name: Push the updated tag version to galaxy.yml
         uses: actions/checkout@v3
-      - run: |
-          git add .
-          git commit -m "Updated galaxy version"
+
+      - name: Push changes back to github
+        run: |
+          git config --global user.name "Rob Harris"
+          git config --global user.email "harrisrp95@gmail.com"
+
+          git add -A
+          git commit -m "Update Ansible Galaxy version"
           git push
 
   super-lint:
