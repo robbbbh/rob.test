@@ -51,8 +51,6 @@ jobs:
       - name: Push the updated tag version to galaxy.yml
         uses: actions/checkout@v3
       - run: |
-          git config user.name "Rob Harris"
-          git config user.email harrisrp95@gmail.com
           git add .
           git commit -m "Updated galaxy version"
           git push
