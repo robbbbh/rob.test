@@ -44,7 +44,9 @@ jobs:
 
       - name: Push changes back to github
         run: |
-          pip3 install yq
+          pip3 install yq --user
+          pwd
+          ls -lrt
           yq -i -y '.version = "${{ github.ref_name }}"' ./galaxy.yml 
 
           git config --global user.name "Rob Harris"
@@ -52,7 +54,7 @@ jobs:
 
           git add -A
           git commit -m "Update Ansible Galaxy version"
-          git push
+          git push -u origin main
 
   super-lint:
     name: "Lint code base"
