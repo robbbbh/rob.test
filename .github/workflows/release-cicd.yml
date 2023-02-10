@@ -7,33 +7,6 @@ on:
       - "*"
 
 jobs:
-  variable-dump:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJson(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
 
   update-galaxy-version:
     name: Update Galaxy Version
@@ -93,15 +66,26 @@ jobs:
   test-yaml-reader:
     runs-on: ubuntu-latest
     name: Test read-yaml
+    outputs:
+      collection_name: ${{ steps.collection_name.outputs.name }}
+      collection_namespace: ${{ steps.collection_namespace.outputs.namespace }}
     steps:
       - uses: actions/checkout@v3
+      - name: gather env vars
+        run: |
+          pip3 install yq --user
+          COLLECTION_NAME=$(yq -r '.name' ./galaxy.yml)
+          COLLECTION_NAMESPACE=$(yq -r '.namespace' ./galaxy.yml)
 
-      - name: Run read-yaml action
-        id: yaml-data
-        uses: jbutcher5/read-yaml@main      # You may wish to replace main with a version tag such as '1.6' etc.
-        with:
-          file: './galaxy.yml '          # File to read from
-          key-path: '["name", "namespace"]' # Access the runs key then the using key and retuns the value.
+      - name: Set collection name
+        id: collection_name
+        run: echo "name=$COLLECTION_NAME" >> $GITHUB_OUTPUT
 
-      - name: Display read-yaml output
-        run: echo "${{ steps.yaml-data.outputs.data }}"
+      - name: Set collection namespace
+        id: collection_namespace
+        run: echo "namespace=$COLLECTION_NAMESPACE" >> $GITHUB_OUTPUT
+
+      - name: Print out the GitHUB_OUTPUT 
+        run: | 
+          echo "name is ${{ steps.collection_name.outputs.collection_name }}"
+          echo "namespace is ${{ steps.collection_namespace.outputs.collection_namespace }}"
