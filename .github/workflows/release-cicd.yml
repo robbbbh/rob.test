@@ -66,9 +66,6 @@ jobs:
   test-yaml-reader:
     runs-on: ubuntu-latest
     name: Test read-yaml
-    outputs:
-      collection_name: ${{ steps.collection_name.outputs.name }}
-      collection_namespace: ${{ steps.collection_namespace.outputs.namespace }}
     steps:
       - uses: actions/checkout@v3
       - name: gather collection info
@@ -79,7 +76,8 @@ jobs:
           echo "name=$COLLECTION_NAME" >> $GITHUB_ENV
           echo "namespace=$COLLECTION_NAMESPACE" >> $GITHUB_ENV
 
-      - name: Print out the GitHUB_OUTPUT 
+      - name: Print out the GitHUB_ENV
         run: | 
           echo "name is "${{ env.name }}""
           echo "namespace is "${{ env.namespace }}""
+          echo "Repository URL "${{ github.repository.ssh_url }}""
