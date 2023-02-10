@@ -1,6 +1,6 @@
 namespace: rob
 name: test
-version: 0.0.34
+version: 0.0.35
 readme: README.md
 authors:
   - Rob Harris <roharris@redhat.com>
