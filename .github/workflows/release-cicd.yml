@@ -71,17 +71,15 @@ jobs:
       collection_namespace: ${{ steps.collection_namespace.outputs.namespace }}
     steps:
       - uses: actions/checkout@v3
-      - name: gather env vars
+      - name: gather collection info
         run: |
           pip3 install yq --user
           export COLLECTION_NAME=$(yq -r '.name' ./galaxy.yml)
           export COLLECTION_NAMESPACE=$(yq -r '.namespace' ./galaxy.yml)
-          echo "name=$COLLECTION_NAME" >> $GITHUB_OUTPUT
-          echo "namespace=$COLLECTION_NAMESPACE" >> $GITHUB_OUTPUT
-          echo $COLLECTION_NAME
-          echo $COLLECTION_NAMESPACE
+          echo "name=$COLLECTION_NAME" >> $GITHUB_ENV
+          echo "namespace=$COLLECTION_NAMESPACE" >> $GITHUB_ENV
 
       - name: Print out the GitHUB_OUTPUT 
         run: | 
-          echo "name is ${{ steps.collection_name.outputs.collection_name }}"
-          echo "namespace is ${{ steps.collection_namespace.outputs.collection_namespace }}"
+          echo "name is "${{ env.name }}""
+          echo "namespace is "${{ env.namespace }}""
