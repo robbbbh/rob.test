@@ -74,8 +74,8 @@ jobs:
       - name: gather env vars
         run: |
           pip3 install yq --user
-          COLLECTION_NAME=$(yq -r '.name' ./galaxy.yml)
-          COLLECTION_NAMESPACE=$(yq -r '.namespace' ./galaxy.yml)
+          export COLLECTION_NAME=$(yq -r '.name' ./galaxy.yml)
+          export COLLECTION_NAMESPACE=$(yq -r '.namespace' ./galaxy.yml)
 
       - name: Set collection name
         id: collection_name
