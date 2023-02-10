@@ -80,4 +80,4 @@ jobs:
         run: | 
           echo "name is "${{ env.name }}""
           echo "namespace is "${{ env.namespace }}""
-          echo "Repository URL "${{ github.repository.ssh_url }}""
+          echo "Repository URL "${{ github.repositoryUrl }}""
