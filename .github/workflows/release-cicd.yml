@@ -71,8 +71,10 @@ jobs:
       - name: gather collection info
         run: |
           pip3 install yq --user
-          export COLLECTION_NAME=$(yq -r '.name' ./galaxy.yml)
-          export COLLECTION_NAMESPACE=$(yq -r '.namespace' ./galaxy.yml)
+          COLLECTION_NAME=$(yq -r '.name' ./galaxy.yml)
+          COLLECTION_NAMESPACE=$(yq -r '.namespace' ./galaxy.yml)
+          export COLLECTION_NAME
+          export COLLECTION_NAMESPACE
           echo "name=$COLLECTION_NAME" >> $GITHUB_ENV
           echo "namespace=$COLLECTION_NAMESPACE" >> $GITHUB_ENV
 
