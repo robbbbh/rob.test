@@ -80,6 +80,6 @@ jobs:
 
       - name: Print out the GitHUB_ENV
         run: | 
-          echo "name is "${{ env.name }}"
-          echo "namespace is "${{ env.namespace }}"
-          echo "Repository URL "${{ github.ssh_url }}"
+          echo "name is ${{ env.name }}"
+          echo "namespace is ${{ env.namespace }}"
+          echo "Repository URL ${{ github.ssh_url }}"
